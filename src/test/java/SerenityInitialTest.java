@@ -1,12 +1,13 @@
 import net.serenitybdd.junit.runners.SerenityRunner;
-import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.rest.abiities.CallAnApi;
-import net.serenitybdd.screenplay.rest.interactions.Get;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import questions.ResponseCode;
+import task.GetUsers;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 @RunWith(SerenityRunner.class)
 public class SerenityInitialTest {
@@ -18,6 +19,8 @@ public class SerenityInitialTest {
         daniel.attemptsTo(
                 GetUsers.fromPage(2)
         );
-        assertThat(SerenityRest.lastResponse().statusCode()).isEqualTo(200);
+        daniel.should(
+                seeThat("El codigo de respuesta", ResponseCode.was(), equalTo(200))
+        );
     }
 }
